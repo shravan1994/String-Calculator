@@ -8,6 +8,8 @@ The kata was taken from the [Incubyte TDD Assessment](https://blog.incubyte.co/b
 ## How to run
 On windows, below commands will work for windows only, for other OS, please use equivalent commands as per each OS.
 
+#### Run below commands from project root
+
 Create virtual environment
 ```py -m venv env```
 
@@ -18,4 +20,8 @@ Install dependencies
 ```pip install -r requirements.txt```
 
 To run tests
+set python path to current directory
+```set PYTHONPATH=.```
+
+Run tests
 ```pytest app/tests```
