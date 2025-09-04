@@ -7,7 +7,7 @@ class StringCalculator:
         
         numbers = self._normalize_delimiters(numbers)
         
-        numbers_list = numbers.split(',')
+        numbers_list = numbers.strip().split(',')
         numbers_list = list(map(lambda x: int(x), numbers_list))
 
         result = sum(numbers_list)
@@ -20,8 +20,10 @@ class StringCalculator:
             numbers = numbers[newline_index+1:]
             numbers = numbers.replace(custom_delimiter, ',')
             return numbers
-
-        for delimiter in self.SUPPORTED_DELIMITERS:
-            numbers = numbers.replace(delimiter, ',')
+        else:
+            # in case of specified custom delimeter do not use,
+            # existing set of delimeters like ',' and '\n'
+            for delimiter in self.SUPPORTED_DELIMITERS:
+                numbers = numbers.replace(delimiter, ',')
 
         return numbers

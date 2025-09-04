@@ -18,3 +18,6 @@ def test_calculator_with_newline_delimiter():
 def test_calculator_with_custom_delimiter():
     calculator = StringCalculator()
     calculator.add('//;\n1;2') == 3
+    calculator.add('//:\n1:2:4') == 7
+    calculator.add('//@\n5@5@5') == 15
+    calculator.add('//aa\n2aa2aa2') == 6
