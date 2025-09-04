@@ -3,4 +3,10 @@ class StringCalculator:
         if not numbers:
             return 0
         
-        return int(numbers)
+        result = 0
+        numbers_list = numbers.split(',')
+        numbers_list = list(map(lambda x: int(x), numbers_list))
+        for num in numbers_list:
+            result += num
+
+        return result
