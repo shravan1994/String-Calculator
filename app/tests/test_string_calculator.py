@@ -14,3 +14,7 @@ def test_string_calculator_many_numbers():
 def test_calculator_with_newline_delimiter():
     calculator = StringCalculator()
     assert calculator.add('1\n5,5') == 11
+
+def test_calculator_with_custom_delimiter():
+    calculator = StringCalculator()
+    calculator.add('//;\n1;2') == 3
