@@ -1,4 +1,5 @@
 from typing import List
+import re
 
 class StringCalculator:
     SUPPORTED_DELIMITERS = ['\n']
@@ -31,9 +32,17 @@ class StringCalculator:
     def _normalize_delimiters(self, numbers: str) -> str:
         if numbers.startswith('//'):
             newline_index = numbers.find("\n")
-            custom_delimiter = numbers[2:newline_index]
+            custom_delimiter_part = numbers[2:newline_index]
+            
+            if custom_delimiter_part.startswith('['):
+                custom_delimiter = re.findall(r"\[(.*?)\]", custom_delimiter_part)
+            else:
+                custom_delimiter = [custom_delimiter_part]
+
             numbers = numbers[newline_index+1:]
-            numbers = numbers.replace(custom_delimiter, ',')
+
+            for delimiter in custom_delimiter:
+                numbers = numbers.replace(delimiter, ',')
             return numbers
         else:
             for delimiter in self.SUPPORTED_DELIMITERS:
