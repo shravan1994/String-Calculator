@@ -4,13 +4,11 @@ class StringCalculator:
     SUPPORTED_DELIMITERS = ['\n']
 
     def add(self, numbers: str) -> int:
-        if not numbers:
+        if not numbers.strip():
             return 0
         
         numbers = self._normalize_delimiters(numbers)
-        
         numbers_list = self._parse_numbers(numbers)
-
         result = sum(numbers_list)
         return result
 
@@ -22,7 +20,9 @@ class StringCalculator:
         if negative_nums:
             raise ValueError(
                 f'negative numbers not allowed {','.join(map(str, negative_nums))}')
-                
+        
+        numbers_list = list(filter(lambda x: x < 1000, numbers_list))
+
         return numbers_list
     
     def _normalize_delimiters(self, numbers: str) -> str:
