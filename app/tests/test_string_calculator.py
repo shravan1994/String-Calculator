@@ -8,3 +8,5 @@ def test_string_calculator():
 def test_string_calculator_many_numbers():
     calculator = StringCalculator()
     assert calculator.add('1,5') == 6
+    assert calculator.add('2,5,3') == 10
+    assert calculator.add('2,5,3,5') == 15
