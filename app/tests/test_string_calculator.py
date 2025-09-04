@@ -1,4 +1,5 @@
 from app.src.string_calculator import StringCalculator
+import pytest
 
 def test_string_calculator():
     calculator = StringCalculator()
@@ -21,3 +22,8 @@ def test_calculator_with_custom_delimiter():
     calculator.add('//:\n1:2:4') == 7
     calculator.add('//@\n5@5@5') == 15
     calculator.add('//aa\n2aa2aa2') == 6
+
+def test_calculator_with_negative_numbers():
+    with pytest.raises(ValueError, match="negative numbers not allowed -2,-4"):
+        calculator = StringCalculator()
+        calculator.add("1,-2,3,-4")
