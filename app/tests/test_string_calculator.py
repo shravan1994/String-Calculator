@@ -27,3 +27,9 @@ def test_calculator_with_negative_numbers():
     with pytest.raises(ValueError, match="negative numbers not allowed -2,-4"):
         calculator = StringCalculator()
         calculator.add("1,-2,3,-4")
+
+
+def test_calculator_with_numbers_gt_1k():
+    calculator = StringCalculator()
+    # numbers greater than 1000 should be ignored
+    assert calculator.add("1001, 2") == 2
