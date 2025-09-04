@@ -1,3 +1,5 @@
+from typing import List
+
 class StringCalculator:
     SUPPORTED_DELIMITERS = ['\n']
 
@@ -7,15 +9,21 @@ class StringCalculator:
         
         numbers = self._normalize_delimiters(numbers)
         
+        numbers_list = self._parse_numbers(numbers)
+
+        result = sum(numbers_list)
+        return result
+
+    def _parse_numbers(self, numbers: str) -> List[int]:
         numbers_list = numbers.strip().split(',')
         numbers_list = list(map(lambda x: int(x), numbers_list))
+
         negative_nums = list(filter(lambda x: x < 0, numbers_list))
         if negative_nums:
             raise ValueError(
                 f'negative numbers not allowed {','.join(map(str, negative_nums))}')
-
-        result = sum(numbers_list)
-        return result
+                
+        return numbers_list
     
     def _normalize_delimiters(self, numbers: str) -> str:
         if numbers.startswith('//'):
