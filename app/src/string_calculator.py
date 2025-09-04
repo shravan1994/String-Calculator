@@ -9,6 +9,10 @@ class StringCalculator:
         
         numbers_list = numbers.strip().split(',')
         numbers_list = list(map(lambda x: int(x), numbers_list))
+        negative_nums = list(filter(lambda x: x < 0, numbers_list))
+        if negative_nums:
+            raise ValueError(
+                f'negative numbers not allowed {','.join(map(str, negative_nums))}')
 
         result = sum(numbers_list)
         return result
