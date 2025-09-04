@@ -2,26 +2,29 @@ from typing import List
 
 class StringCalculator:
     SUPPORTED_DELIMITERS = ['\n']
+    MAX_ALLOWED_NUMBER = 1000
 
     def add(self, numbers: str) -> int:
         if not numbers.strip():
             return 0
         
         numbers = self._normalize_delimiters(numbers)
-        numbers_list = self._parse_numbers(numbers)
-        result = sum(numbers_list)
-        return result
+        if not numbers:
+            return 0
 
+        numbers_list = self._parse_numbers(numbers)
+        return sum(numbers_list)
+        
     def _parse_numbers(self, numbers: str) -> List[int]:
         numbers_list = numbers.strip().split(',')
-        numbers_list = list(map(lambda x: int(x), numbers_list))
+        numbers_list = [int(x) for x in numbers_list if x]
 
-        negative_nums = list(filter(lambda x: x < 0, numbers_list))
+        negative_nums = [x for x in numbers_list if x < 0]
         if negative_nums:
             raise ValueError(
-                f'negative numbers not allowed {','.join(map(str, negative_nums))}')
+                f"negative numbers not allowed {','.join(map(str, negative_nums))}")
         
-        numbers_list = list(filter(lambda x: x < 1000, numbers_list))
+        numbers_list = [x for x in numbers_list if x <= self.MAX_ALLOWED_NUMBER]
 
         return numbers_list
     
@@ -33,8 +36,6 @@ class StringCalculator:
             numbers = numbers.replace(custom_delimiter, ',')
             return numbers
         else:
-            # in case of specified custom delimeter do not use,
-            # existing set of delimeters like ',' and '\n'
             for delimiter in self.SUPPORTED_DELIMITERS:
                 numbers = numbers.replace(delimiter, ',')
 
