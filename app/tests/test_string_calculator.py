@@ -24,6 +24,7 @@ def test_calculator_with_custom_delimiter():
     calculator.add('//@\n5@5@5') == 15
     calculator.add('//aa\n2aa2aa2') == 6
     calculator.add('//;\n') == 0
+    calculator.add('//***\n1***2***3') == 6
 
 def test_calculator_with_negative_numbers():
     with pytest.raises(ValueError, match="negative numbers not allowed -2,-4"):
@@ -33,6 +34,10 @@ def test_calculator_with_negative_numbers():
 
 def test_calculator_with_numbers_gt_1k():
     calculator = StringCalculator()
-    # numbers greater than 1000 should be ignored
+    # numbers greater than 1000 should be ignored, 1000 is allowed
     assert calculator.add("1001, 2") == 2
     assert calculator.add("1000, 2") == 1002
+
+def test_calculator_with_multiple_delimiters():
+    calculator = StringCalculator()
+    assert calculator.add("//[*][%]\n1*2%3") == 6
