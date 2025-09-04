@@ -41,3 +41,4 @@ def test_calculator_with_numbers_gt_1k():
 def test_calculator_with_multiple_delimiters():
     calculator = StringCalculator()
     assert calculator.add("//[*][%]\n1*2%3") == 6
+    assert calculator.add("//[*][%]\n1*2%3%") == 6

@@ -30,22 +30,19 @@ class StringCalculator:
         return numbers_list
     
     def _normalize_delimiters(self, numbers: str) -> str:
+        DELIMITERS = self.SUPPORTED_DELIMITERS
+
         if numbers.startswith('//'):
             newline_index = numbers.find("\n")
             custom_delimiter_part = numbers[2:newline_index]
-            
-            if custom_delimiter_part.startswith('['):
-                custom_delimiter = re.findall(r"\[(.*?)\]", custom_delimiter_part)
-            else:
-                custom_delimiter = [custom_delimiter_part]
-
             numbers = numbers[newline_index+1:]
 
-            for delimiter in custom_delimiter:
-                numbers = numbers.replace(delimiter, ',')
-            return numbers
-        else:
-            for delimiter in self.SUPPORTED_DELIMITERS:
-                numbers = numbers.replace(delimiter, ',')
+            if custom_delimiter_part.startswith('['):
+                DELIMITERS = re.findall(r"\[(.*?)\]", custom_delimiter_part)
+            else:
+                DELIMITERS = [custom_delimiter_part]
+        
+        for delimiter in DELIMITERS:
+            numbers = numbers.replace(delimiter, ',')
 
         return numbers
