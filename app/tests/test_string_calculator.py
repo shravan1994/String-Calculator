@@ -10,3 +10,7 @@ def test_string_calculator_many_numbers():
     assert calculator.add('1,5') == 6
     assert calculator.add('2,5,3') == 10
     assert calculator.add('2,5,3,5') == 15
+
+def test_calculator_with_newline_delimiter():
+    calculator = StringCalculator()
+    assert calculator.add('1\n5,5') == 11
