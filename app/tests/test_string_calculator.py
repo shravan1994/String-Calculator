@@ -19,12 +19,12 @@ def test_calculator_with_newline_delimiter():
 
 def test_calculator_with_custom_delimiter():
     calculator = StringCalculator()
-    calculator.add('//;\n1;2') == 3
-    calculator.add('//:\n1:2:4') == 7
-    calculator.add('//@\n5@5@5') == 15
-    calculator.add('//aa\n2aa2aa2') == 6
-    calculator.add('//;\n') == 0
-    calculator.add('//***\n1***2***3') == 6
+    assert calculator.add('//;\n1;2') == 3
+    assert calculator.add('//:\n1:2:4') == 7
+    assert calculator.add('//@\n5@5@5') == 15
+    assert calculator.add('//aa\n2aa2aa2') == 6
+    assert calculator.add('//;\n') == 0
+    assert calculator.add('//***\n1***2***3') == 6
 
 def test_calculator_with_negative_numbers():
     with pytest.raises(ValueError, match="negative numbers not allowed -2,-4"):
@@ -43,3 +43,12 @@ def test_calculator_with_multiple_delimiters():
     assert calculator.add("//[*][%]\n1*2%3") == 6
     assert calculator.add("//[*][%]\n1*2%3%") == 6
     assert calculator.add("//[***][%%]\n1***2%%3%%") == 6
+
+
+def test_extra():
+    calculator = StringCalculator()
+    # empty delimiter
+    assert calculator.add("//[]\n1231") == 7
+    # double delimiter
+    assert calculator.add("1,,2,3,1,") == 7
+    assert calculator.add("//[*][**]\n1*2**3") == 6
